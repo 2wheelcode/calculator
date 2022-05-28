@@ -70,3 +70,11 @@ function inputDecimal(dot) { // tried using actual '.', doesn't work
         calculator.displayValue += dot;
     }
 }
+
+// Arithmetic Operators. Issues and conditions
+/* 
+1. when user hits operator before entering the first operand (number)
+2. when user hits operator after entering first operand
+3. if user hits operator after second, third, etc. operand. This may be beyond my ability at this point?
+4. what if the user changes their mind about the entered operator?
+*/
