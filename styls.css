@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    display: block;
+    margin: 80px auto;
+    padding: 20px;
+    width: 350px;
+    height: 485px;
+    background-color: #808080;
+    border-radius: 18px;
+    border: 3px solid #000;
+    -webkit-box-shadow: 0px 3px 5px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 5px 5px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 5px 5px rgba(0,0,0,0.75);
+}
+
+.screen {
+    width: 275px;
+    height: 60px;
+    background-color: #fff;
+    margin: 25px auto 60px;
+    border-radius: 8px;
+    border: 1px solid #000;
+    -webkit-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
+}
+
+.buttons {
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 7px;
+    border: 2px solid #808080;
+    -webkit-box-shadow: 0px 0px 4px 4px rgba(200,200,200,1);
+    -moz-box-shadow: 0px 0px 4px 4px rgba(200,200,200,1);
+    box-shadow: 0px 0px 4px 4px rgba(200,200,200,1);
+}
+
+.btn {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+button {
+    padding: 7px;
+    border-radius: 5px;
+    border: 1.2px solid #000;
+    -webkit-box-shadow: 0px 0px 1.2px 1.2px rgba(9,9,9,1);
+    -moz-box-shadow: 0px 0px 1.2px 1.2px rgba(9,9,9,1);
+    box-shadow: 0px 0px 1.2px 1.2px rgba(9,9,9,1);
+}
+
+.top-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#clear {
+    background-color: #f43c3c;
+    border-color: #ff0000;
+}
+
+
+.numbers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.function-btns {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.footer {
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+}
