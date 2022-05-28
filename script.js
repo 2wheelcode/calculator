@@ -40,6 +40,8 @@ keys.addEventListener('click', (e) => {
     // decimal is is a unique item, needs individual targeting
     if (target.classList.contains('decimal')) {
         console.log('decimal:', target.value);
+        inputDecimal(target.value);
+        updateDisplay();
         return;
     }
 
@@ -57,7 +59,14 @@ keys.addEventListener('click', (e) => {
 
 function inputDigit(digit) {
     const { displayValue } = calculator;
-    // Overwrite 'displayValue' if current is '0', otherwise append
+    // Overwrite 'displayValue' if current is '0', otherwise concatenate
     calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
 }
 
+function inputDecimal(dot) { // tried using actual '.', doesn't work
+    // If displayValue property does not contain a decimal
+    if (!calculator.displayValue.includes(dot)) {
+        // Append the decimal
+        calculator.displayValue += dot;
+    }
+}
