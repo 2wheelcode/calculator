@@ -16,10 +16,13 @@ function updateDisplay() {
     display.value = calculator.displayValue;
 }
 
+updateDisplay();
+
 const keys = document.querySelector('.buttons');
 keys.addEventListener('click', (e) => {
     // Get the clicked element
-    const {target} = e;
+    // const target = e.target
+    const {target} = e; //found this as shorthand
 
     // Verify clicked element isa button
     // If not, exit from the function
@@ -27,20 +30,26 @@ keys.addEventListener('click', (e) => {
         return;
     }
 
+    // target operator specifically
+    // percent and sq/rt may be a challenging to formulate
     if (target.classList.contains('operator')) {
         console.log('operator:', target.value);
         return;
     }
 
+    // decimal is is a unique item, needs individual targeting
     if (target.classList.contains('decimal')) {
         console.log('decimal:', target.value);
         return;
     }
 
+    // clear is unique, will call it's own function
     if (target.classList.contains('clear')) {
         console.log('clear:', target.value);
         return;
     }
     
+    // remainder of the keys
     console.log('digit:', target.value);
 });
+
