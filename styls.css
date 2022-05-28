@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    background-color:#778899
+}
+
 .card {
     display: block;
     margin: 80px auto;
