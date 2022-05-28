@@ -51,5 +51,13 @@ keys.addEventListener('click', (e) => {
     
     // remainder of the keys
     console.log('digit:', target.value);
+    inputDigit(target.value);
+    updateDisplay();
 });
+
+function inputDigit(digit) {
+    const { displayValue } = calculator;
+    // Overwrite 'displayValue' if current is '0', otherwise append
+    calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+}
 
