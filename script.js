@@ -58,7 +58,7 @@ keys.addEventListener('click', (e) => {
 });
 
 function inputDigit(digit) {
-    const { displayValue } = calculator;
+    const {displayValue} = calculator;
     // Overwrite 'displayValue' if current is '0', otherwise concatenate
     calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
 }
@@ -78,3 +78,8 @@ function inputDecimal(dot) { // tried using actual '.', doesn't work
 3. if user hits operator after second, third, etc. operand. This may be beyond my ability at this point?
 4. what if the user changes their mind about the entered operator?
 */
+
+function operator (altOperator) {
+    
+    const {firstOperand, displayValue, operator} = calculator;
+}
