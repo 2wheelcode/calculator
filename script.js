@@ -7,16 +7,34 @@ const calculator = {
     firstOperand: null,
     waitingForSecondOperand: false,
     operator: null,
-  };
+  }
 
-function updateDisplay() {
-    document.getElementsByClassName('screen').innerText = '';
-    const display = document.querySelector('.calc-screen');
-    // update the value of the element with the contents of `displayValue`
-    display.value = calculator.displayValue;
+function inputDigit (digit) {
+    const {displayValue, waitingForSecondOperand} = calculator;
+
+    if (waitingForSecondOperand === true) {
+        calculator.displayValue = digit;
+        calculator.waitingForSecondOperand = false;
+    } else {
+        calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+    }
+    console.log(calculator);
 }
 
-updateDisplay();
+function inputDecimal(dot) { // tried using actual '.', doesn't work
+    // Decimal gets added to firstOperand after clicking operator instead of beginning secondOperand, this corrects that issue
+    if (calculator.waitingForSecondOperand === true) {
+        calculator.displayValue = '0.'
+        calculator.waitingForSecondOperand = false;
+        return;
+    }
+    // If displayValue property does not contain a decimal
+    if (!calculator.displayValue.includes(dot)) {
+        // Append the decimal
+        calculator.displayValue += dot;
+    }
+}
+console.log(calculator);
 
 const keys = document.querySelector('.buttons');
 keys.addEventListener('click', (e) => {
@@ -34,6 +52,8 @@ keys.addEventListener('click', (e) => {
     // percent and sq/rt may be a challenging to formulate
     if (target.classList.contains('operator')) {
         console.log('operator:', target.value);
+        handleOperator(target.value);
+        updateDisplay;
         return;
     }
 
@@ -47,7 +67,9 @@ keys.addEventListener('click', (e) => {
 
     // clear is unique, will call it's own function
     if (target.classList.contains('clear')) {
-        console.log('clear:', target.value);
+        //console.log('clear:', target.value);
+        resetCalculator();
+        updateDisplay();
         return;
     }
     
@@ -55,21 +77,8 @@ keys.addEventListener('click', (e) => {
     console.log('digit:', target.value);
     inputDigit(target.value);
     updateDisplay();
-});
+})
 
-function inputDigit(digit) {
-    const {displayValue} = calculator;
-    // Overwrite 'displayValue' if current is '0', otherwise concatenate
-    calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
-}
-
-function inputDecimal(dot) { // tried using actual '.', doesn't work
-    // If displayValue property does not contain a decimal
-    if (!calculator.displayValue.includes(dot)) {
-        // Append the decimal
-        calculator.displayValue += dot;
-    }
-}
 
 // Arithmetic Operators. Issues and conditions
 /* 
@@ -79,7 +88,66 @@ function inputDecimal(dot) { // tried using actual '.', doesn't work
 4. what if the user changes their mind about the entered operator?
 */
 
-function operator (altOperator) {
-    
-    const {firstOperand, displayValue, operator} = calculator;
+function handleOperator (nextOperator) {
+    // Destructure the properties of the calculator object
+    const {firstOperand, displayValue, operator} = calculator
+    // parseFloat converts string contents of displayValue to a number
+    const inputValue = parseFloat(displayValue);
+
+    // If user changes mind on operator...need to have change operator option
+    if (operator && calculator.waitingForSecondOperand) {
+        calculator.operator = nextOperator;
+        console.log(calculator)
+        return;
+    }
+
+    // verify that firstOperand is null and that the inputValue is not NaN value
+    if (firstOperand === null && !isNaN(inputValue)) {
+        //Update the firstOperand property
+        calculator.firstOperand = inputValue;
+    } else if (operator) {
+        const result = calculate(firstOperand, inputValue, operator);
+        // calculator.displayValue = String(result); // binary floating-point issue
+        calculator.displayValue = `${parseFloat(result.toFixed(7))}`; // google search fix result
+        calculator.firstOperand = result;
+    }
+    calculator.waitingForSecondOperand = true;
+    calculator.operator = nextOperator;
+    // console.log(firstOperand);
+    // console.log(calculator);
+    updateDisplay();
 }
+
+function calculate(firstOperand, secondOperand, operator) {
+    if (operator === '+') {
+        return firstOperand + secondOperand;
+    } else if (operator === '-') {
+        return firstOperand - secondOperand;
+    } else if (operator === '*') { 
+        return firstOperand * secondOperand;
+    } else if (operator === '/') {
+        return firstOperand / secondOperand;
+    } /* else if (operator === 'sq-root' && secondOperand === '') {
+        return firstOperand.sqrt // Not sure why this doesn't work?
+    } */
+ console.log(secondOperand);
+return secondOperand;
+}
+
+function resetCalculator() {
+    calculator.displayValue = '0';
+    calculator.firstOperand = null;
+    calculator.waitingForSecondOperand = false;
+    calculator.operator = null;
+    console.log('Clear!');
+    console.log(calculator);
+}
+
+function updateDisplay() {
+    //document.getElementsByClassName('screen').innerText = '';
+    const display = document.querySelector('.calc-screen');
+    // update the value of the element with the contents of `displayValue`
+    display.value = calculator.displayValue;
+}
+
+updateDisplay();
