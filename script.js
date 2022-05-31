@@ -34,6 +34,8 @@ keys.addEventListener('click', (e) => {
     // percent and sq/rt may be a challenging to formulate
     if (target.classList.contains('operator')) {
         console.log('operator:', target.value);
+        handleOperator(target.value);
+        updateDisplay;
         return;
     }
 
@@ -79,7 +81,31 @@ function inputDecimal(dot) { // tried using actual '.', doesn't work
 4. what if the user changes their mind about the entered operator?
 */
 
-function operator (altOperator) {
-    
-    const {firstOperand, displayValue, operator} = calculator;
+function handleOperator (altOperator) {
+    // Destructure the properties of the calculator object
+    const {firstOperand, displayValue, operator} = calculator
+    // parseFloat converts string contents of displayValue to a number
+    const inputValue = parseFloat(displayValue);
+    // verify that firstOperand is null and that the inputValue is not NaN value
+    if (firstOperand === null && !isNaN(inputValue)) {
+        //Update the firstOperand property
+        calculator.firstOperand = inputValue;
+    }
+    calculator.waitingForSecondOperand = true;
+    calculator.operator = altOperator;
+    console.log(firstOperand);
+    console.log(calculator);
 }
+
+function inputDigit (digit) {
+    const {displayValue, waitingForSecondOperand} = calculator;
+
+    if (waitingForSecondOperand === true) {
+        calculator.displayValue = digit;
+        calculator.waitingForSecondOperand =false;
+    } else {
+        calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+    }
+    console.log(calculator);
+}
+
